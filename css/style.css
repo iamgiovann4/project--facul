@@ -1,7 +1,7 @@
 html{
 
 
-  --body-color:#fcecd4f6 ;
+  --body-color:#e4e4e46c ;
 
   --header-color:#d36c6c;
 
@@ -153,13 +153,14 @@ button {
 
 @media only screen and (max-width: 600px) {
   body {
-    display: block;
+    margin: 0px;
   }
   #container {
     width: 100%;
+    margin: 168px 0px;
   }
   .day {
-    width: 39px;
+    width: 43.5px;
     height: 41px;
     display: flex;
     align-items: center;
@@ -167,13 +168,13 @@ button {
   }
   #weekdays {
     font-size: 10px;
+    text-align: center;
   }
   #weekdays div {
     width: 100px;
-    padding-left: 10px;
   }
   #header {
-    padding-bottom: 10px;
+    padding: 10px 5px;
     font-size: 20px;
   }
 }
