@@ -1,7 +1,7 @@
 html{
 
 
-  --body-color:#FFFCFF ;
+  --body-color:#fcecd4f6 ;
 
   --header-color:#d36c6c;
 
@@ -25,10 +25,7 @@ html{
 
 }
 
-
-
 body {
-  display: flex;
   margin-top: 50px;
   justify-content: center;
   background-color: var(--body-color);
@@ -159,11 +156,14 @@ button {
     display: block;
   }
   #container {
-    width: 480px;
+    width: 100%;
   }
   .day {
-    width: 57px;
-    height: 60px;
+    width: 39px;
+    height: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   #weekdays {
     font-size: 10px;
@@ -171,5 +171,9 @@ button {
   #weekdays div {
     width: 100px;
     padding-left: 10px;
+  }
+  #header {
+    padding-bottom: 10px;
+    font-size: 20px;
   }
 }
