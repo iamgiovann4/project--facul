@@ -201,3 +201,23 @@ function buttons() {
 buttons()
 load()
 
+async function loadSlide() {
+  const response = await fetch('./selectEvent.php')
+  const result = await response.json()
+  if (result?.success) {
+      const slide = document.querySelector('#carrossel')
+      slide.innerHTML = '';
+      const divSlide = result.data
+      divSlide.map((fotos) => {
+          slide.innerHTML += `<div class="carousel-item">
+          <img src="${fotos.capa}" alt="" class="img-fluid d-block">
+          <div class="carousel-caption d-none d-block">
+            <h3>${fotos.titulo}</h3>
+            <p class="d-none d-sm-block">${fotos.descricao}</p>
+          </div>
+        </div>`
+      })
+  }else{
+      alert('Erro ao cadastrar a imagem')
+  }  //if
+}//funcao;
