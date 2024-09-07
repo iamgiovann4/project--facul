@@ -132,6 +132,7 @@ function saveEvent(){
       title: eventTitleInput.value
     })
 
+    insertEvents(events)
     localStorage.setItem('events', JSON.stringify(events))
     closeModal()
 
@@ -173,3 +174,17 @@ function buttons (){
 }
 buttons()
 load()
+
+async function insertEvents(event) {
+  const formData = new FormData(event)
+  const response = await fetch('../backend/insertEvent.php', {
+      method: 'POST',
+      body: formData
+  })
+  const result = await response.json()
+  if (result?.success) {
+      alert('Seu evento '+result.data.title+' foi cadastrado com sucesso!');
+  } else {
+    console.log(error)
+  }
+  }
