@@ -37,9 +37,9 @@ function openModal(date) {
 
 //função load() será chamada quando a pagina carregar:
 
-function load() {
-  const date = new Date()
-
+async function load() {
+  const eventsDB = await loadEvent();
+  const date = new Date();
 
   //mudar titulo do mês:
   if (nav !== 0) {
@@ -85,13 +85,11 @@ function load() {
     if (i > paddinDays) {
       dayS.innerText = i - paddinDays
 
-
-      const eventDay = events.find(event => event.date === dayString)
+      const eventDay = eventsDB.find(event => event.date === dayString)
 
       if (i - paddinDays === day && nav === 0) {
         dayS.id = 'currentDay'
       }
-
 
       if (eventDay) {
         const eventDiv = document.createElement('div')
@@ -201,23 +199,13 @@ function buttons() {
 buttons()
 load()
 
-async function loadSlide() {
-  const response = await fetch('./selectEvent.php')
+async function loadEvent() {
+  const response = await fetch('./backend/selectEvent.php')
   const result = await response.json()
   if (result?.success) {
-      const slide = document.querySelector('#carrossel')
-      slide.innerHTML = '';
-      const divSlide = result.data
-      divSlide.map((fotos) => {
-          slide.innerHTML += `<div class="carousel-item">
-          <img src="${fotos.capa}" alt="" class="img-fluid d-block">
-          <div class="carousel-caption d-none d-block">
-            <h3>${fotos.titulo}</h3>
-            <p class="d-none d-sm-block">${fotos.descricao}</p>
-          </div>
-        </div>`
-      })
+    return result.data || [];
   }else{
-      alert('Erro ao cadastrar a imagem')
-  }  //if
+    alert('Erro ao listar o evento');
+    return [];
+  } 
 }//funcao;
