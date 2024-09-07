@@ -1,25 +1,42 @@
 <?php
 require('connect.php');
 
-        // Dados do membro
-        $title = $_POST["title"];
-        $date = $_POST["date"];
+try {
+    // Dados do membro
+    $title = $_POST["title"] ?? '';
+    $date = $_POST["date"] ?? '';
 
-        try {
-            // Preparar e executar a consulta SQL para inserir dados do membro
-            $stmt = $connect->prepare("INSERT INTO events (title, date) 
-                VALUES (:title, :date)");
-        
-            // Bind dos parâmetros
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':date', $date);
+    // Verificar se os dados são válidos
+    if (!empty($title) && !empty($date)) {
+        // Preparar e executar a consulta SQL para inserir dados do membro
+        $stmt = $connect->prepare("INSERT INTO events (title, date) VALUES (:title, :date)");
 
-            $stmt->execute();
+        // Bind dos parâmetros
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':date', $date);
 
-            $result["success"]["message"] = "Cadastrado com sucesso!";
-            $result["data"]["title"] = $title;
-            header('Content-Type: application/json');
-            echo json_encode($result);
-        } catch (PDOException $e) {
-            echo "Erro ao inserir dados do membro: " . $e->getMessage();
-        }
+        $stmt->execute();
+
+        $result = [
+            "success" => true,
+            "data" => [
+                "title" => $title
+            ]
+        ];
+    } else {
+        $result = [
+            "success" => false,
+            "message" => "Dados inválidos."
+        ];
+    }
+    
+    header('Content-Type: application/json');
+    echo json_encode($result);
+} catch (PDOException $e) {
+    $result = [
+        "success" => false,
+        "message" => "Erro ao inserir dados do membro: " . $e->getMessage()
+    ];
+    header('Content-Type: application/json');
+    echo json_encode($result);
+}
