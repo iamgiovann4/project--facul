@@ -26,6 +26,7 @@ html{
 }
 
 body {
+  display: flex;
   margin-top: 50px;
   justify-content: center;
   background-color: var(--body-color);
@@ -154,13 +155,14 @@ button {
 @media only screen and (max-width: 600px) {
   body {
     margin: 0px;
+    padding: 0 10px;
   }
   #container {
     width: 100%;
     margin: 168px 0px;
   }
   .day {
-    width: 41.5px;
+    width: 37px;
     height: 41px;
     display: flex;
     align-items: center;
